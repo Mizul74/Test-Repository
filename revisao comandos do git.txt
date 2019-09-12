@@ -10,7 +10,7 @@ git commit -m "nome da situação do arquivo" = para commitar todos os arquivos qu
 				            = nome da situação é tipo, que tipo de alterações foram feitas? ex: Commit Inicial
 
 para ignorar certos arquivos no ambiente de trabalho do git, devemos fazer com que o git ignore este(s) arquivo(s)
-para ignorar basta criar um arquivo chamado .gitignore e colocar dentro dele todos os arquivos que o git deve ignorar,
+para ignorar basta criar um arquivo chamado .gitignore e colocar dentro dele pelo vscode o nome de todos os arquivos que o git deve ignorar,
 incluindo o proprio .gitignore
 
 para pular a parte do git add e commit, pular a staging area, para fazer os dois ao mesmo tempo digite:
