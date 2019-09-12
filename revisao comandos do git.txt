@@ -1,0 +1,110 @@
+								1° AULA - APRENDA A COMMITAR SEU PROJETO
+git init = inicia um novo repositorio
+git status = ve o status dos arquivos dentro da pasta, se tem arquivos untracked(não monitorados) ou tracked(monitorados)
+git add nomedoarquivo.extensao = para track(ear) o arquivo
+git add *.extensao = para track(ear) todos os arquivos da extensão citada, ex: git add *txt
+git add . = para track(ear) todos os arquivos dentro da pasta
+(git add manda os arquivos para a "staging area")
+(ao usar o git add estamos tirando os arquivos do "working diretory" para entrar na "staging area" (esperando ser commitados) )
+git commit -m "nome da situação do arquivo" = para commitar todos os arquivos que estão na "stage area" (salva as mudanças do seu arquivo)
+				            = nome da situação é tipo, que tipo de alterações foram feitas? ex: Commit Inicial
+
+para ignorar certos arquivos no ambiente de trabalho do git, devemos fazer com que o git ignore este(s) arquivo(s)
+para ignorar basta criar um arquivo chamado .gitignore e colocar dentro dele todos os arquivos que o git deve ignorar,
+incluindo o proprio .gitignore
+
+para pular a parte do git add e commit, pular a staging area, para fazer os dois ao mesmo tempo digite:
+git commit -a -m "nomedamensagem"
+cuidado!! pois na staging area você pode pegar os arquivos de volta ou reverter a situação deles
+porém pode usar que grava direto as modificações no repositório do git
+
+Como usar? faça alguma alteração no seu projeto, na sua ide. Siga os passos :
+1. git status
+2. git add . || git add *extensao || git add nomedoarquivo
+3. git status
+4. git commit -m "nomedamensagem"
+5. git status
+
+0. Working Diretory
+2. Staging Area
+4. Git Directory
+
+ou
+
+1. git status
+2. git commit -a -m "nomedamensagem"
+3. git status
+
+0. Working Diretory
+2. Staging area and Git Diretory
+
+								2° AULA - CONSULTAR O QUE FEZ
+
+git diff = você consegue ver o que foi alterado naquele arquivo no Working Diretory
+git diff --staged = você consegue ver o que foi alterado naquele arquivo no Staging Area
+git log = mostra o log(informação) de todos os commit que você fez no seu projeto, histórico
+git log -p = é o git log + git diff de todos os commit que você fez no seu projeto, precisa ficar apertando ENTER para descer as linhas. No final tem o END, aperte Q para voltar ao git bash normal.
+git log -p -1 = é o "log -p" colocando o numero de entradas que você quer, informa o numero de resultados que você quer que aparaceça na sua tela. ex: -1 para aparecer o mais recente, -3 e assim vai.
+git log --pretty=oneline = mostra apenas a chave dos commits e seu nome (muito mais bonito de ver)
+(git log apresena uma chave ao lado de commit, essa chave serve para você referenciar esse commit se você quiser voltar sua versão no commit que você pegou a chave) 
+gitk = mostra a interface do git, da pra ver os relatórios e analizar as alterações de arquivos de forma mais agradavel
+
+								3° AULA - REVERTER O QUE FEZ
+
+>>situação : tem dois arquivos para editar, você editou 1 deles e já deu commit, esqueceu de editar o outro.
+	   para resolver você faria um novo commit, mas evite fazer isso. para editar um commit já feito faça:
+depois de alterar o arquivo que esqueceu:
+git status -> para ver se ele foi realmente modificado
+git add . -> para adicionar ele ao Staging Area
+git commit --amend -m "nomedamensagem(edicao) = edita o último commit, por isso o nome edição. Edita o último commit feito. 
+git log --pretty=oneline -> para consultar o log de informações e ver se a edição foi feita
+
+>>situação : você deu um "git add ." e adicionou certos arquivos que você não queria adicionar na Staging Area, como reverter isso?
+git reset HEAD nomedoarquivo.extensao = para tirar o arquivo da Staging Area
+
+>>situação : você deu commit num arquivo, porém modificou ele depois e quando consultou, viu que modificou e descobriu que não era 
+	     pra ter modificado, fez merda, como resolver?
+git checkout -- nomedoarquivo.extensao = para voltar seu arquivo modificado ao status original que ele se encontrava naquele commit que você fez
+
+>>situação : depois de commitar tudo, você resolve renomear algum arquivo, deletar outro e quer fazer um novo commit, porém vai dar erro,
+             pois aqueles arquivos ainda estão "cadastrados" naquele repositório, você precisa excluir ele de lá antes de fazer um novo
+	     commit. Siga os passos:
+git status -> aqui vai mostrar os arquivos renomeados e deletados
+git add . -> para adicionar na staging area e vai dar erro dizendo que tem conflitos
+git status -> vai mostrar que você tem arquivos pedentes deletados no seu repositório (vai estar em vermelho esses arquivos)
+git rm nomedoarquivo.extensao -> para excluir/limpar esses arquivos que não existem mais ou apenas foram renomeados
+git status -> você vai ver que vai estar tudo certo
+git commit -m "nomedamensagem" -> para salvar as alterações
+git status -> tudo tranquilo, tudo certo.
+
+								4° AULA - TAGS e BRANCH's
+
+TAG é uma etiqueta, um ponto de atalho para um determiado status do sistema, gerealmente usado para criar marcações nas versões diferentes de um sistemas, ex: v1.0, v1.1, v1.2
+
+git tag = para mostrar todas as tags criadas
+git tag -a v1.0 -m "mensagem" = para criar uma tag, escolha a versão e a mensagem
+git tag -a numerodachavedocommit -m "versao v0.0" = para criar uma tag em algum commit ja criado, depois diz na mensagem a versao da tag
+git show v0.0 = para mostrar mais detalhes sobre esta tag, quem criou e tal
+git checkout v0.0 = para visualizar os arquivos da versão que você quer, ex: v0.0. Esse comando ele troca os arquivos para a versão que voCê escolher
+git checkout master = para voltar ao padrão 
+git tag -d v0.0 = para deletar a tag
+
+
+BRANCH é tipo uma linha do tempo administravél, master é a principal e você pode criar outras pra fazer certas mudanças (ambiente de teste)
+
+git branch = mostra todas as branchs criadas
+git branch nomedanovabranch = cria uma nova branch
+git checkout -b nomedanovabranch = para criar uma nova branch e já inicia nela
+git merge nomedabranchnova = para juntar as mudanças feitas na nova branch para o  branch master
+git branch -d nomedabranch = para deletar alguma branch (não delete a master)
+git checkout master = para voltar ao branch master ou qualquer branch, só mudar o nome master para o nome do branch que você quer entrar
+
+
+								5° AULA - GIT REDE-LOCAL
+
+git init --bare = para criar um repositório que outras pessoas da rede consiga acessar (vai criar várias pastas)
+git clone file:////nomedamaquinadoservidor/pasta/pasta nomedapastaquevocêquecriar = para criar um clone para trabalhar dentro do servidor 
+git remote = para saber o nome do seu servidor remoto(padrao 'origin')
+git push origin master = para mandar os dados para seu servidor remoto
+git pull origin master = para trazer os dados para seu servidor remoto (porém isso faz um merge, isso não é um problema)
+git fetch origin branch master = para trazer os dados para seu servidor remoto (isso não faz merge)
